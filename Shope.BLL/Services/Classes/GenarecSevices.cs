@@ -1,8 +1,9 @@
 ﻿using Mapster;
+using Shope.BLL.Services.Interfaces;
 using Shope.DAL.DTO.Request;
 using Shope.DAL.DTO.Response;
 using Shope.DAL.Models;
-using Shope.DAL.Repository;
+using Shope.DAL.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,21 @@ using System.Text;
 using System.Threading.Tasks;
 using static Shope.DAL.Models.BaseModel;
 
-namespace Shope.BLL.Services
+namespace Shope.BLL.Services.Classes
 {
-   public class Categoryservices : Iservices
+   public class GenarecSevices<Trequest, Tresponse, TEntity> : IGenarecServices<Trequest, Tresponse, TEntity>
+        where TEntity : BaseModel
     {
-        public Categoryservices(Irepository CateporyRepository)
+        public GenarecSevices(IGenarecRepositry<TEntity> CateporyRepository)
         {
             this.CateporyRepository = CateporyRepository;
         }
 
-        private readonly Irepository CateporyRepository;
+        private readonly IGenarecRepositry<TEntity> CateporyRepository;
 
-        public int CreateCategory(CategoryRequest request)
+        public int Create(Trequest request)
         {
-            var category= request.Adapt<Category>();
+            var category = request.Adapt<TEntity>();
             return CateporyRepository.Add(category);
         }
 
@@ -39,32 +41,33 @@ namespace Shope.BLL.Services
 
         }
 
-        public IEnumerable<CategoryResponse> GetAllCategories()
+        public IEnumerable<Tresponse> GetAll()
         {
-            var categories = CateporyRepository.GetallCategory();
-            return CateporyRepository.Adapt<IEnumerable<CategoryResponse>>();
+            var categories = CateporyRepository.GetallEntity();
+            return CateporyRepository.Adapt<IEnumerable<Tresponse>>();
         }
 
-        public CategoryResponse GetCategoryById(int id)
+        public Tresponse? GetById(int id)
         {
             var category = CateporyRepository.GetbyId(id);
-            return category is null ? null : category.Adapt<CategoryResponse>();
+            return category is null ? default : category.Adapt<Tresponse>();
         }
 
-        public int UpdateCategory(int id,CategoryRequest request)
+        public int Update(int id, Trequest request)
         {
             var category = CateporyRepository.GetbyId(id);
             if (category is null)
             {
                 return 0;
             }
-            category.Name = request.Name;
-            return CateporyRepository.Update(category);
+             
+            var UpdateEntity = request.Adapt(category);
+            return CateporyRepository.Update(UpdateEntity);
 
         }
         public bool togle(int id)
         {
-            Category category = CateporyRepository.GetbyId(id);
+            var category = CateporyRepository.GetbyId(id);
             if (category is null)
             {
                 return false;

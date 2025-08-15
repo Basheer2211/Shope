@@ -9,32 +9,32 @@ namespace Shope.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class BrandController : ControllerBase
     {
-        private readonly ICategoryServieces Categoryservices;
-        public CategoryController(ICategoryServieces categoryservices)
+        private readonly IBrandsServices BrandServices;
+        public BrandController(IBrandsServices categoryservices)
         {
-            this.Categoryservices = categoryservices;
+            this.BrandServices = categoryservices;
         }
         [HttpGet("GetAllCategories")]
         public IActionResult GetAll()
         {
-            var cat = Categoryservices.GetAll();
+            var cat = BrandServices.GetAll();
             return Ok(cat);
         }
         [HttpGet("GetCategory/{id}")]
         public IActionResult Get([FromRoute]int id)
         {
-            if (Categoryservices.GetById(id) is null)
+            if (BrandServices.GetById(id) is null)
             {
                 return NotFound();
             }
-            return Ok(Categoryservices.GetById(id));
+            return Ok(BrandServices.GetById(id));
         }
         [HttpDelete("DeleteCategory/{id}")]
         public IActionResult Delete([FromRoute]int id)
         {
-            var category = Categoryservices.Delete(id);
+            var category = BrandServices.Delete(id);
             if (category==0)
             {
                 return NotFound();
@@ -42,15 +42,15 @@ namespace Shope.PL.Controllers
             return Ok();
         }
         [HttpPost]
-        public IActionResult Creat([FromBody] CategoryRequest cat)
+        public IActionResult Creat([FromBody] BrandRequest cat)
         {
-         int id= Categoryservices.Create(cat);
+         int id= BrandServices.Create(cat);
             return CreatedAtAction(nameof(Get), new {id});
         }
         [HttpPatch("Update/{id}")]
-        public IActionResult Update([FromRoute]int id,[FromBody] CategoryRequest request)
+        public IActionResult Update([FromRoute]int id,[FromBody] BrandRequest request)
         {
-            var cat = Categoryservices.Update(id, request);
+            var cat = BrandServices.Update(id, request);
             if (cat==0)
             {
                 return NotFound();

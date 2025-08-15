@@ -1,8 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Shope.BLL.Services;
-using Shope.BLL;
 using Shope.DAL.data;
 using Shope.DAL.Repository;
+using Shope.DAL.Repository.Interface;
+using Shope.BLL.Services.Interfaces;
+using Shope.DAL.Repository.Class;
+using Shope.BLL.Services.Classes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +15,9 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<Irepository,CategoryRepository>();
-builder.Services.AddScoped<Iservices, Categoryservices>();
+builder.Services.AddScoped<ICategoryServieces, Categoryservices>();
+builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+builder.Services.AddScoped<IBrandsServices, BrandsServices>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

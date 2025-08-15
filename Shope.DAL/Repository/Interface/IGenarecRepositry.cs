@@ -1,0 +1,18 @@
+﻿using Shope.DAL.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Shope.DAL.Repository.Interface
+{
+    public interface IGenarecRepositry<T> where T:BaseModel
+    {
+        T GetbyId(int id);
+        IEnumerable<T> GetallEntity();
+        int Add(T category);
+        int Update(T category);
+        int Delete(T category);
+    }
+}
