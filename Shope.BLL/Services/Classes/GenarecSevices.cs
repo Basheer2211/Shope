@@ -41,10 +41,16 @@ namespace Shope.BLL.Services.Classes
 
         }
 
-        public IEnumerable<Tresponse> GetAll()
+        public IEnumerable<Tresponse> GetAll(bool state=false)
         {
             var categories = CateporyRepository.GetallEntity();
-            return CateporyRepository.Adapt<IEnumerable<Tresponse>>();
+            if (state)
+            {
+                categories= categories.Where(e => e.statuse == Statuse.Active);
+                return categories.Adapt<IEnumerable<Tresponse>>();
+            }
+            
+            return categories.Adapt<IEnumerable<Tresponse>>();
         }
 
         public Tresponse? GetById(int id)

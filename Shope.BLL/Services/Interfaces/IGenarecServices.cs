@@ -12,7 +12,7 @@ namespace Shope.BLL.Services.Interfaces
    public interface IGenarecServices<Trequest,Tresponse,TEntity>where TEntity:BaseModel
     {
         public int Create(Trequest request);
-        public IEnumerable<Tresponse> GetAll();
+        public IEnumerable<Tresponse> GetAll(bool state = true);
         public Tresponse GetById(int id);
         public int Update(int id, Trequest request);
         public int Delete(int id);

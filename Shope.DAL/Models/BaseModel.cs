@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shope.DAL.Models
 {
-   public class BaseModel
+    public class BaseModel
     {
-       public enum Statuse
+        public enum Statuse
         {
-            Active=1,
-            InActive=2
+            Active = 1,
+            InActive = 2
 
         }
         public int Id { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         [Column("Statuse")]
-        public Statuse statuse { get; set; } 
+        public Statuse statuse { get; set; } = Statuse.Active;
     }
 }

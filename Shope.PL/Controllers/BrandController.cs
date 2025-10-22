@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shope.BLL.Services;
 using Shope.BLL.Services.Interfaces;
@@ -9,6 +10,8 @@ namespace Shope.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    // [Authorize]//ما حدا بقدر يجيب البراند كله الا اذا كان مسجل دخوله
+
     public class BrandController : ControllerBase
     {
         private readonly IBrandsServices BrandServices;
@@ -17,6 +20,7 @@ namespace Shope.PL.Controllers
             this.BrandServices = categoryservices;
         }
         [HttpGet("GetAllCategories")]
+
         public IActionResult GetAll()
         {
             var cat = BrandServices.GetAll();

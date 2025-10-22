@@ -10,6 +10,5 @@ namespace Shope.DAL.Repository.Interface
     public  interface Irepository: IGenarecRepositry<Category>
     {
         
-
     }
 }

@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Shope.BLL.Services.Interfaces
 {
-    public interface IBrandsServices:IGenarecServices<BrandRequest, BrandResponse,Brands>
+    public interface  IBrandsServices:IGenarecServices<BrandRequest, BrandResponse,Brands>
     {
+        Task<int> createFile(BrandRequest request);
     }
 }

@@ -36,6 +36,7 @@ namespace Shope.DAL.Repository.Class
 
         public IEnumerable<T> GetallEntity()
         {
+            
             var categories = context.Set<T>().ToList();
             return categories;
         }
